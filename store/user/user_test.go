@@ -27,14 +27,13 @@ func TestStoreFind(t *testing.T) {
 	//multiple test cases
 	tests := []struct {
 		name             string
-		store            *userStore
 		funcFindArgs     args
 		shouldThrowError bool
 	}{
 		//testcases might not be valid for production scenario, but they might give insights on how sqlmock behave
-		{name: "Test#1:Valid UserID fetch", store: usrstr, funcFindArgs: args{context.Background(), 350}, shouldThrowError: false},
-		{name: "Test#2:Invalid UserId fetch", store: usrstr, funcFindArgs: args{context.Background(), 230}, shouldThrowError: true},
-		{name: "Test#3:Invalid Query Statement", store: usrstr, funcFindArgs: args{context.Background(), 230}, shouldThrowError: true},
+		{name: "Test#1:Valid UserID fetch", funcFindArgs: args{context.Background(), 350}, shouldThrowError: false},
+		{name: "Test#2:Invalid UserId fetch", funcFindArgs: args{context.Background(), 230}, shouldThrowError: true},
+		{name: "Test#3:Invalid Query Statement", funcFindArgs: args{context.Background(), 230}, shouldThrowError: true},
 	}
 
 	for _, tc := range tests {
@@ -55,7 +54,7 @@ func TestStoreFind(t *testing.T) {
 				mock.ExpectQuery(q).WithArgs(tc.funcFindArgs.usrId).WillReturnRows(rows)
 			}
 
-			_, err = tc.store.Find(tc.funcFindArgs.ctx, tc.funcFindArgs.usrId)
+			_, err = usrstr.Find(tc.funcFindArgs.ctx, tc.funcFindArgs.usrId)
 
 			//if there is an error but we don't expecct it, than log the error for FAIL
 			//vice-versa, if there is not an error but we expect one, then also log and FAIL

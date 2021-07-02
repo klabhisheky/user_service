@@ -2,7 +2,7 @@ POST http://localhost:9100/user HTTP/1.1
 content-type: application/json
 
 {           
-            "Name"          :   "Kuber Singh",
+            "Name"          :   "Suman Singh",
             "Address"       :   "Vrindavan , Ayodhya, IN",
             "Phone"         :   "9977777899" 
 }
